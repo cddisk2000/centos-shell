@@ -11,3 +11,7 @@ System Environment: Centos 7
 |Author|Landy.Wang|
 |---|---
 |E-mail|cddisk2000@gmail.com
+|Weblcone To Google Blog - http://my-fish-it.blogspot.com
+
+|“Good Judgement Comes From Experience, And Experience Comes From Bad Judgement.”
+|- Frederick P. Brooks Jr.
