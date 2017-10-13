@@ -8,6 +8,10 @@ System Environment: Centos 7
 
 2017.10.13 - Grafana_Server_Version_1.sh - Support Grafana 4.5.2-1
 
+2017.10.13 - Ntopng_Server_Version_1.sh - Support Ntopng 3.1.171009
+
+InfluxDB_Server_Version_1.sh - comeing soon 
+
 *********
 	
 |Author|Landy.Wang|
