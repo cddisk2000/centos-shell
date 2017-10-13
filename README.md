@@ -1,6 +1,6 @@
 README
 ===========================
-Use simple Shell Script syntax to complete complex build procedures
+Use Simple Shell Script Syntax To Complete Complex Build Procedures
 
 System Environment: Centos 7
 
