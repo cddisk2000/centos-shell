@@ -12,6 +12,8 @@ System Environment: Centos 7
 
 2017.10.13 - InfluxDB_Server_Version_1.sh - Support InfluxDB 1.3.5
 
+2017.10.17 - ELK_Server_Version_1.sh - Support ELK 5.6.3
+
 *********
 	
 |Author|Landy.Wang|
