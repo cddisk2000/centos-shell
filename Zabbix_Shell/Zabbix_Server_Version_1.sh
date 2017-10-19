@@ -268,6 +268,14 @@ systemctl restart zabbix-server
 #每次開機啟用「zabbix-server」
 systemctl enable zabbix-server
 
+
+#====啟動「zabbix-agent」
+sudo systemctl start zabbix-agent
+#==每次開機啟用「zabbix-agent 」。
+sudo systemctl enable zabbix-agent
+
+    
+
 #重新啟動「主機」
 reboot -h now
 
