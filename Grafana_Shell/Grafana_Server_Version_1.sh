@@ -46,7 +46,7 @@ sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
 
 #=== 設定 Grafana Firewall ============
  
-# Zabbix-Http (Server) 3000/TCP
+# Grafana-Http (Server) 3000/TCP
 sudo firewall-cmd --add-port=3000/tcp --permanent 
 
 #重新啟動「防火牆」
@@ -150,6 +150,17 @@ grafana-cli plugins install grafana-simple-json-datasource
 
 #安裝「Grafana」Ford「ntop-ntopng-datasource」
 grafana-cli plugins install ntop-ntopng-datasource
+
+
+#====「InfluxData - Admin UI 」需要安裝「下面」套件====
+yum install -y nodejs
+yum install -y openssl
+npm install -g yarn
+npm install -g grunt-cli
+#安裝「natel-influx」( Influx Admin UI) 套件
+grafana-cli plugins install natel-influx-admin-panel
+#=====END============
+
 
 #更新「Grafana 」最新「版本」
 grafana-cli plugins update-all
