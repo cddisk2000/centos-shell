@@ -56,7 +56,7 @@ yum install epel-release -y
 # <<EOF               配置文件開始標誌
 # >/opt/grafana.repo  將「內文」寫入「grafana.repo」
 # 最後面 EOF 告訴 系統，這止結束。
-cat <<EOF >/etc/yum.repos.d/grafana.repo
+cat <<EOF >/etc/yum.repos.d/influxdb.repo
 [influxdb]
 name = InfluxDB Repository - RHEL \$releasever
 baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
