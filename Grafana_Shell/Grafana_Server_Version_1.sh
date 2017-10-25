@@ -115,6 +115,9 @@ grafana-cli plugins install grafana-clock-panel
 #安裝「Grafan」For 「Pannel - Pie Chart」Plugin (圓餅圖)
 grafana-cli plugins install grafana-piechart-panel
 
+#安裝「Grafan」For 「Pannel - Annotation」Plugin (Influxdata)
+grafana-cli plugins install novalabs-annotations-panel
+
 #安裝「Grafan」For 「Pannel - Diagram」Plugin (圖表)
 grafana-cli plugins install jdbranham-diagram-panel
 
@@ -136,30 +139,33 @@ grafana-cli plugins install kentik-app
 #安裝「Grafan」For「briangann-datatable-panel」Plugin
 grafana-cli plugins install briangann-datatable-panel
 
-#安裝「Grafana」For「Zabbix-Apps」( Zabbix Data API Plugin )
+#安裝「Grafana」For「Pannel - Zabbix」( Zabbix Data API Plugin )
 sudo grafana-cli plugins install alexanderzobnin-zabbix-app
 
-#安裝「Grafana」For「prtg-datasource」
-grafana-cli plugins install jasonlashua-prtg-datasource
 
-#安裝「Grafana」For「influxdb-datasource」
-grafana-cli plugins install grafana-influxdb-08-datasource
-
-#安裝「Grafana」For「Simple-json-datasource」
-grafana-cli plugins install grafana-simple-json-datasource
-
-#安裝「Grafana」Ford「ntop-ntopng-datasource」
-grafana-cli plugins install ntop-ntopng-datasource
-
-
-#====「InfluxData - Admin UI 」需要安裝「下面」套件====
+#====「InfluxData - Admin UI 」需要安裝「下面」套件
 yum install -y nodejs
 yum install -y openssl
 npm install -g yarn
 npm install -g grunt-cli
+
 #安裝「natel-influx」( Influx Admin UI) 套件
 grafana-cli plugins install natel-influx-admin-panel
-#=====END============
+#========END========
+
+
+#安裝「Grafana」For「Pannel - Simple-json」
+grafana-cli plugins install grafana-simple-json-datasource
+
+#安裝「Grafana」For「ntop-ntopng-datasource」
+grafana-cli plugins install ntop-ntopng-datasource
+
+#安裝「Grafana」For「PRTG」套件
+grafana-cli plugins install jasonlashua-prtg-datasource
+
+#安裝「Grafana」For「Prometheus」套件
+grafana-cli plugins install camptocamp-prometheus-alertmanager-datasource
+
 
 
 #更新「Grafana 」最新「版本」
