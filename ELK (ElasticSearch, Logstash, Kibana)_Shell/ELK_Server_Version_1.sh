@@ -9,7 +9,7 @@ do
 echo "
 
 +----------------------------------------------------------------------
-| 2017.10.17 Write By Landy.Wang Version 1.0
+| 2017.11.03 Write By Landy.Wang Version 2.0
 | Blog http://my-fish-it.blogspot.com
 +----------------------------------------------------------------------
 
@@ -18,17 +18,26 @@ echo "
 +----------------------------------------------------------------------
 | Install ELK 5.6.3 FOR CentOS 7                   2
 -----------------------------------------------------------------------
-| Edit Logstash Config File                        3
+| Edit Elasticsearch Config File                   3
+-----------------------------------------------------------------------
+| Edit Logstash Config File                        4
+-----------------------------------------------------------------------
+| Edit Kibana Config File                          5
 +----------------------------------------------------------------------
-| Restart Elasticsearch                            4
+| Restart Elasticsearch                            6
 +----------------------------------------------------------------------
-| Restart Logstash                                 5
+| Restart Logstash                                 7
 +----------------------------------------------------------------------
-| Restart Kibana                                   6
+| Restart Kibana                                   8
 +----------------------------------------------------------------------
-| Check |TCP-9200|TCP-5043|UDP-514|TCP-5601        7
+| Check |TCP-9200|TCP-5043|UDP-514|TCP-5601        9
 +----------------------------------------------------------------------
-| ELK Web UI  http:// Hostname or Local_IP:5601
+| Install X-Pack For Elasticsearch、Kibana          10
++----------------------------------------------------------------------
+| ELK Web UI http:// Hostname or Local_IP:5601
+| ELK For X-PACK Default User:elastic Password:changeme
++----------------------------------------------------------------------
+| Note Memory Can Not Be Less Than 4G Best Suggestion 6G
 +----------------------------------------------------------------------
 "
 
@@ -269,19 +278,38 @@ fi
 
 
 
-#=============判斷「輸入」3 編輯「Logstash」設定檔=========
+
+#=============判斷「輸入」3 編輯「Elasticsearch」設定檔=========
 
 if [ $select = 3 ]; then
      
+vi /opt/elasticsearch-5.6.3/config/elasticsearch.yml
+
+fi 
+
+
+
+#=============判斷「輸入」4 編輯「Logstash」設定檔=========
+
+if [ $select = 4 ]; then
+     
 vi /opt/logstash-5.6.3/config/logstash-conf.yml
+
+fi 
+
+
+#=============判斷「輸入」5 編輯「Kibana」設定檔=========
+
+if [ $select = 5 ]; then
+     
+vi /opt/kibana-5.6.3-linux-x86_64/config/kibana.yml
 
 fi
 
 
 
-
-#=============判斷「輸入」4 重啟「ElasticSearch」=========
-if [ $select = 4 ]; then
+#=============判斷「輸入」6 重啟「ElasticSearch」=========
+if [ $select = 6 ]; then
 
  
   #查找 端口號「PID」
@@ -302,8 +330,8 @@ if [ $select = 4 ]; then
 fi
 
 
-#=============判斷「輸入」5 重啟「Logstash」=========
-if [ $select = 5 ]; then
+#=============判斷「輸入」7 重啟「Logstash」=========
+if [ $select = 7 ]; then
  
   #查找 端口號「PID」
   Logstash_PID=`netstat -ltunp | grep "5043" |awk '{print $7}'|awk -F'/' '{print $1}'`
@@ -324,8 +352,8 @@ fi
 
 
 
-#=============判斷「輸入」6 重啟「Kibana」=========
-if [ $select = 6 ]; then
+#=============判斷「輸入」8 重啟「Kibana」=========
+if [ $select = 8 ]; then
      
 	#查找 端口號「PID」
     Kibana_PID=`netstat -ltunp | grep "5601" |awk '{print $7}'|awk -F'/' '{print $1}'`
@@ -345,8 +373,8 @@ if [ $select = 6 ]; then
 fi
 
 
-#=============判斷「輸入」7 確認「TCP-9200|TCP-5043|UDP-514|TCP-5601」=========
-if [ $select = 7 ]; then
+#=============判斷「輸入」9 確認「TCP-9200|TCP-5043|UDP-514|TCP-5601」=========
+if [ $select = 9 ]; then
      
 	#查找 ElasticSearch 端口號「9200」
     ElasticSearch_Count=`netstat -ltunp | grep "9200"|wc -l`
@@ -398,6 +426,74 @@ if [ $select = 7 ]; then
 fi
 
 
+
+#=============判斷「輸入」10 安裝「X-Pack For Elasticsearch、Kibana」=========
+if [ $select = 10 ]; then
+
+    #切換 「kibana」bin 目錄。
+    cd /opt/kibana-5.6.3-linux-x86_64/bin
+	
+   # kibana 線上安裝「x-pack」套件，時間會比較久，約「5~10」分鐘。
+   ./kibana-plugin install x-pack
+   
+   
+    #切換 「elasticsearch」bin 目錄。
+    cd /opt/elasticsearch-5.6.3/bin
+
+	#「elasticsearch」安裝 「x-pack」套件，出現「問答」則輸入「2」次「y」
+	./elasticsearch-plugin install x-pack << EOF
+	y
+    y
+EOF
+   
+    	
+    #====刪除「logstash」程序
+	#查找 端口號「PID」
+    Logstash_PID=`netstat -ltunp | grep "5043" |awk '{print $7}'|awk -F'/' '{print $1}'`
+	#刪除「PID」程序
+    kill -9 $Logstash_PID
+    #執行「logstash」會產生「處理程序」PID。，-f  => 啟動「配置文件」。
+    nohup /opt/logstash-5.6.3/bin/logstash -f /opt/logstash-5.6.3/config/logstash-conf.yml &
+	
+    
+    
+	#====刪除「elasticsearch」程序
+    #查找 端口號「PID」
+    ElasticSearch_PID=`netstat -ltunp | grep "9200" |awk '{print $7}'|awk -F'/' '{print $1}'`
+    #刪除「PID」程序
+    kill -9 $ElasticSearch_PID
+    #使用「elk」帳號，背景運行「elasticsearch」 程序。TCP-9200
+    su elk -c 'nohup /opt/elasticsearch-5.6.3/bin/elasticsearch &'
+	
+	
+	
+	#====刪除「Kibana」程序
+    #查找 端口號「PID」
+    Kibana_PID=`netstat -ltunp | grep "5601" |awk '{print $7}'|awk -F'/' '{print $1}'`
+    #刪除「PID」程序
+    kill -9 $Kibana_PID
+    #啟動「Kibana Web UI」
+    /opt/kibana-5.6.3-linux-x86_64/bin/kibana &
+   
+   
+   #====重啟「logstash」、「elasticsearch」、「Kibana Web UI」====
+   
+   #  執行「logstash」會產生「處理程序」PID。，-f  => 啟動「配置文件」。
+   nohup /opt/logstash-5.6.3/bin/logstash -f /opt/logstash-5.6.3/config/logstash-conf.yml &
+   
+   #等待「5」秒
+   sleep 50000
+   
+   #使用「elk」帳號，背景運行「elasticsearch」 程序。TCP-9200
+   su elk -c 'nohup /opt/elasticsearch-5.6.3/bin/elasticsearch &'
+   
+   #等待「10」秒
+   sleep 10000
+   
+   #啟動「Kibana Web UI」
+    /opt/kibana-5.6.3-linux-x86_64/bin/kibana &
+
+fi
 
 #===迴圈結束======
 done
