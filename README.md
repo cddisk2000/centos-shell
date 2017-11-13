@@ -12,10 +12,9 @@ System Environment: Centos 7
 
 2017.10.13 - InfluxDB_Server_Version_1.sh - Support InfluxDB 1.3.5
 
-2017.10.17 - ELK_Server_Version_1.sh - Support ELK 5.6.3
-2017.11.03 - ELK_Server_Version_1.sh - Join X-Pack And Edit ELK Config  
+2017.11.13 - ELK_Server_Version_5.6.3.sh
 
-2017.11.03 - ELK_Server_Version_1.sh - Join X-Pack And Edit ELK Config
+2017.11.13 - ELK_Server_Version_5.6.4.sh
 
 *********
 	
