@@ -15,6 +15,8 @@ System Environment: Centos 7
 2017.10.17 - ELK_Server_Version_1.sh - Support ELK 5.6.3
 2017.11.03 - ELK_Server_Version_1.sh - Join X-Pack And Edit ELK Config  
 
+2017.11.03 - ELK_Server_Version_1.sh - Join X-Pack And Edit ELK Config
+
 *********
 	
 |Author|Landy.Wang|
