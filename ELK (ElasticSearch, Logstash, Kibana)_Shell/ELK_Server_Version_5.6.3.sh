@@ -196,7 +196,7 @@ for ((i=0; i<3; ++i))
 	    elif [ $elasticsearch!=1 ]; then
 	      echo  Waiting Elasticsearch Start!
 	      #等待「10秒」
-          sleep 10
+          sleep 10000
 	  #判斷「結束」  
 	  fi
 	  
