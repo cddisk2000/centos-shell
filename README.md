@@ -16,6 +16,8 @@ System Environment: Centos 7
 
 2017.11.13 - ELK_Server_Version_5.6.4.sh
 
+2017.12.04 - ELK_Server_Version_6.0.0.sh
+
 *********
 	
 |Author|Landy.Wang|
